@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, abort
 import threading
+import subprocess
+import json
 from testfull import capture_analyze_and_embed  # Assuming this is a module you have
-from query import QueryRAG  # Assuming this is the QueryRAG class defined earlier
+from query import QueryRAG, get_contexts  # Assuming this is the QueryRAG class defined earlier and get_contexts
+
 import os
 
 # Create Flask App
@@ -24,7 +27,7 @@ def take_screenshots():
 @app.route('/')
 def index():
     global screenshot_counter
-    return render_template('index.html', counter=screenshot_counter, results=[])
+    return render_template('index.html', counter=screenshot_counter, results=[], prompt_response=None)
 
 @app.route('/toggle-recording', methods=['POST'])
 def toggle_recording():
@@ -45,7 +48,41 @@ def query():
     if query_text:
         results = query_handler.query(query_text)
         results = [(context, doc_id.replace("\\", "/").split("/")[-1]) for context, doc_id in results]
-    return render_template('index.html', results=results, counter=screenshot_counter)
+    return render_template('index.html', results=results, counter=screenshot_counter, prompt_response=None)
+
+def send_prompt(query_text: str, model="llama3:instruct"):
+    contexts = get_contexts(query_text)
+
+    # Combine the contexts
+    context_text = "\n\n---\n\n".join(contexts)
+    print(context_text)
+    prompt = f"{context_text}\n\nExplain what the user was doing at the time this was opened: {query_text}"
+
+    # Using curl to send the request to the LLM
+    command = [
+        'curl',
+        '-X', 'POST',
+        'http://localhost:11434/api/generate',
+        '-d', json.dumps({"model": model, "prompt": prompt, "stream": False}),
+        '-H', 'Content-Type: application/json'
+    ]
+    try:
+        response = subprocess.run(command, capture_output=True, text=True, check=True)
+        response_json = json.loads(response.stdout)
+        response_text = response_json.get('response', 'No response from the model')
+        print(f"Response: {response_text}")
+        return response_text
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred: {e}")
+        print(f"Command output: {e.output}")
+        return "An error occurred while processing the request."
+
+@app.route('/handle_prompt', methods=['POST'])
+def handle_prompt():
+    prompt_text = request.form.get('prompt_text')
+    model = request.form.get('model', 'llama3:instruct')
+    prompt_response = send_prompt(prompt_text, model)
+    return render_template('index.html', counter=screenshot_counter, results=[], prompt_response=prompt_response)
 
 @app.route('/screenshots/<path:filename>')
 def get_screenshot(filename):

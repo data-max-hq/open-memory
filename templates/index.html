@@ -47,5 +47,17 @@
         {% endfor %}
     </div>
     {% endif %}
+
+    <h1>LLM Prompt</h1>
+    <form action="{{ url_for('handle_prompt') }}" method="post">
+        <input type="text" name="prompt_text" placeholder="Enter your question" required/>
+        <input type="text" name="model" placeholder="Enter model (default is 'llama3:instruct')" value="llama3:instruct"/>
+        <button type="submit">Send Prompt</button>
+    </form>
+    
+    {% if prompt_response %}
+    <h2>Prompt Response</h2>
+    <p>{{ prompt_response }}</p>
+    {% endif %}
 </body>
 </html>

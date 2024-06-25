@@ -47,4 +47,4 @@ def capture_analyze_and_embed():
 if __name__ == "__main__":
     while True:
         capture_analyze_and_embed()
-        time.sleep(5) 
+        time.sleep(30) 

@@ -17,4 +17,4 @@ RUN mkdir -p /app/screenshots /app/chroma
 EXPOSE 9876
 
 # Command to run the Flask app
-CMD ["python3", "Flask"]
+CMD ["python3", "app.py"]

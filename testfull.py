@@ -11,9 +11,9 @@ ocr_model = ocr_predictor(pretrained=True)
 embedding_model = AutoModel.from_pretrained('jinaai/jina-clip-v1', trust_remote_code=True)
 
 # Directories and Files
-SCREENSHOT_DIR = '/screenshots'
-DATA_FILE = '/data/data.txt'
-os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
+SCREENSHOT_DIR = 'screenshots'
+DATA_FILE = 'data.txt'
+os.makedirs(SCREENSHOT_DIR, exist_ok=True)
 
 def process_screenshot(image_path):
     """Processes a single screenshot: performs OCR, generates embeddings, and saves results."""
@@ -45,4 +45,4 @@ def capture_analyze_and_embed():
 if __name__ == "__main__":
     while True:
         capture_analyze_and_embed()
-        time.sleep(5)
+        time.sleep(30)

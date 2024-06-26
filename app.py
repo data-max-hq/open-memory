@@ -32,7 +32,7 @@ def index():
 @app.route('/toggle-recording', methods=['POST'])
 def toggle_recording():
     global recording_active, screenshot_thread
-    recording_active = not recording_active
+    recording_active = recording_active
     if recording_active:
         screenshot_thread = threading.Thread(target=take_screenshots)
         screenshot_thread.start()

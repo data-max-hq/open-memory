@@ -4,7 +4,7 @@ import time
 import pyautogui
 
 # Directory to save screenshots
-SAVE_DIR = 'Docker/screenshots'
+SAVE_DIR = 'screenshots'
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 def capture_screenshots():

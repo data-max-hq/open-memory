@@ -50,7 +50,7 @@ def query():
         results = [(context, doc_id.replace("\\", "/").split("/")[-1]) for context, doc_id in results]
     return render_template('index.html', results=results, counter=screenshot_counter, prompt_response=None)
 
-def send_prompt(query_text: str, model="llama3:instruct"):
+def send_prompt(query_text: str, model="qwen2:1.5b"):
     contexts = get_contexts(query_text)
 
     # Combine the contexts
@@ -80,7 +80,7 @@ def send_prompt(query_text: str, model="llama3:instruct"):
 @app.route('/handle_prompt', methods=['POST'])
 def handle_prompt():
     prompt_text = request.form.get('prompt_text')
-    model = request.form.get('model', 'llama3:instruct')
+    model = request.form.get('model', 'qwen2:1.5b')
     prompt_response = send_prompt(prompt_text, model)
     return render_template('index.html', counter=screenshot_counter, results=[], prompt_response=prompt_response)
 

@@ -2,7 +2,7 @@ import subprocess
 import json
 from query import get_contexts
 
-def send_prompt(query_text: str, model="llama3"):
+def send_prompt(query_text: str, model="qwen2:1.5b"):
     contexts = get_contexts(query_text)
 
     # Combine the contexts
@@ -29,5 +29,5 @@ def send_prompt(query_text: str, model="llama3"):
 
 if __name__ == "__main__":
     query_text = input("Enter your question: ")
-    model = input("Enter the model you want to use (default is 'llama3:instruct'): ") or "llama3:instruct"
+    model = input("Enter the model you want to use (default is 'qwen2'): ") or "qwen2:1.5b"
     send_prompt(query_text, model)

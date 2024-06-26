@@ -21,4 +21,3 @@ EXPOSE 9876
 
 # Command to run the Flask app
 CMD ["flask", "--app", "app.py", "run", "--host=0.0.0.0", "--port=9876"]
-

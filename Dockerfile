@@ -13,8 +13,13 @@ RUN pip install -r requirements.txt
 # Create directories for screenshots and chroma if they don't exist
 RUN mkdir -p /app/screenshots /app/chroma
 
-# Expose the Flask port
+#Ollama
+RUN curl -fsSL https://ollama.com/install.sh | sh
+RUN ollama pull qwen2:1.5b
+
+# Expose ports
 EXPOSE 9876
+EXPOSE 11434
 
 # Command to run the Flask app
 CMD ["python3", "app.py"]

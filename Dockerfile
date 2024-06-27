@@ -15,6 +15,7 @@ RUN mkdir -p /app/screenshots /app/chroma
 
 #Ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
+RUN ollama serve
 RUN ollama pull qwen2:1.5b
 
 # Expose ports

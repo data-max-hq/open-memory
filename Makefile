@@ -2,4 +2,4 @@ build:
 	docker build -t jinaai .
 
 run:
-	docker run -it -p 9876:9876 jinaai /bin/bash
+	docker run -p 9876:9876 -p 11434:11434 jinaai

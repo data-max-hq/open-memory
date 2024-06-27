@@ -33,12 +33,10 @@ def index():
 def toggle_recording():
     global recording_active, screenshot_thread
     recording_active = recording_active
-    if recording_active:
-        screenshot_thread = threading.Thread(target=take_screenshots)
-        screenshot_thread.start()
-    else:
-        if screenshot_thread:
-            screenshot_thread.join()
+    screenshot_thread = threading.Thread(target=take_screenshots)
+    screenshot_thread.start()
+    if screenshot_thread:
+        screenshot_thread.join()
     return redirect(url_for('index'))
 
 @app.route('/query', methods=['POST'])

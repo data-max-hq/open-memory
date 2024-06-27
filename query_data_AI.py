@@ -2,7 +2,9 @@ import subprocess
 import json
 from query import get_contexts
 
-def send_prompt(query_text: str, model="qwen2:1.5b"):
+modelllm = 'qwen2:1.5b'
+
+def send_prompt(query_text: str, model=modelllm):
     contexts = get_contexts(query_text)
 
     # Combine the contexts
@@ -29,5 +31,5 @@ def send_prompt(query_text: str, model="qwen2:1.5b"):
 
 if __name__ == "__main__":
     query_text = input("Enter your question: ")
-    model = input("Enter the model you want to use (default is 'qwen2'): ") or "qwen2:1.5b"
+    model = input("Enter the model you want to use (default is 'qwen2'): ") or model
     send_prompt(query_text, model)

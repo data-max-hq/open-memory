@@ -10,11 +10,7 @@ services:
       - /app/chroma
     networks:
       - app-network
-    deploy:
-      resources:
-        limits:
-          memory: 12g
-
+      
   ollama-service:
     image: ollama/ollama:latest
     ports:

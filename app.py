@@ -2,10 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 import threading
 import subprocess
 import json
-from testfull import capture_analyze_and_embed  # Assuming this is a module you have
+from OCRProc import capture_analyze_and_embed  # Assuming this is a module you have
 from query import QueryRAG, get_contexts  # Assuming this is the QueryRAG class defined earlier and get_contexts
-
 import os
+import requests  # Add requests library for making HTTP requests
 
 # Create Flask App
 app = Flask(__name__)
@@ -26,8 +26,8 @@ def take_screenshots():
 
 @app.route('/')
 def index():
-    global screenshot_counter
-    return render_template('index.html', counter=screenshot_counter, results=[], prompt_response=None)
+    global screenshot_counter, recording_active
+    return render_template('index.html', counter=screenshot_counter, recording_active=recording_active, results=[], prompt_response=None)
 
 @app.route('/toggle-recording', methods=['POST'])
 def toggle_recording():
@@ -46,7 +46,7 @@ def query():
     if query_text:
         results = query_handler.query(query_text)
         results = [(context, doc_id.replace("\\", "/").split("/")[-1]) for context, doc_id in results]
-    return render_template('index.html', results=results, counter=screenshot_counter, prompt_response=None)
+    return render_template('index.html', results=results, counter=screenshot_counter, recording_active=recording_active, prompt_response=None)
 
 def send_prompt(query_text: str, model="qwen2:1.5b"):
     contexts = get_contexts(query_text)
@@ -60,7 +60,7 @@ def send_prompt(query_text: str, model="qwen2:1.5b"):
     command = [
         'curl',
         '-X', 'POST',
-        'http://localhost:11434/api/generate',
+        'http://ollama-service:11434/api/generate',
         '-d', json.dumps({"model": model, "prompt": prompt, "stream": False}),
         '-H', 'Content-Type: application/json'
     ]
@@ -80,7 +80,7 @@ def handle_prompt():
     prompt_text = request.form.get('prompt_text')
     model = request.form.get('model', 'qwen2:1.5b')
     prompt_response = send_prompt(prompt_text, model)
-    return render_template('index.html', counter=screenshot_counter, results=[], prompt_response=prompt_response)
+    return render_template('index.html', counter=screenshot_counter, recording_active=recording_active, results=[], prompt_response=prompt_response)
 
 @app.route('/screenshots/<path:filename>')
 def get_screenshot(filename):
@@ -96,6 +96,20 @@ def get_screenshot(filename):
     except Exception as e:
         print(f"An error occurred: {e}")
         abort(500)
+
+@app.route('/add_llm', methods=['POST'])
+def add_llm():
+    llm_text = request.form['llm_text']
+    data = {"name": llm_text}
+    try:
+        response = requests.post('http://ollama-service:11434/api/pull', json=data)
+        if response.status_code == 200:
+            print('LLM added successfully')
+        else:
+            print(f"Failed to add LLM: {response.status_code}, {response.text}")
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9876, debug=False)

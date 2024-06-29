@@ -1,0 +1,27 @@
+services:
+  custom-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9876:9876"
+    volumes:
+      - ./screenshots:/app/screenshots
+      - /app/chroma
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 12g
+
+  ollama-service:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

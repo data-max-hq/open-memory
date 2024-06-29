@@ -1,5 +1,8 @@
 build:
-	docker build -t jinaai .
+	docker-compose build
 
 run:
-	docker run -p 9876:9876 -p 11434:11434 jinaai
+	docker-compose up
+
+clean:
+	docker rm jinaai-demo

@@ -10,17 +10,17 @@ COPY . /app
 # Install Python dependencies from requirements.txt
 RUN pip install -r requirements.txt
 
+# Install supervisor
+RUN apt-get update && apt-get install -y supervisor
+
 # Create directories for screenshots and chroma if they don't exist
 RUN mkdir -p /app/screenshots /app/chroma
 
-#Ollama
-RUN curl -fsSL https://ollama.com/install.sh | sh
-RUN ollama serve
-RUN ollama pull qwen2:1.5b
+# Copy supervisor configuration file
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose ports
 EXPOSE 9876
-EXPOSE 11434
 
-# Command to run the Flask app
-CMD ["python3", "app.py"]
+# Command to run the supervisor
+CMD ["/usr/bin/supervisord"]

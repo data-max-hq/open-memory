@@ -22,15 +22,16 @@ Our implementation leverages several open-source tools to replicate the function
 * ChromaDB: A database used to store embeddings for efficient retrieval.
 
 ## Setup Guide
-Install Requirements: Follow this guide to install DocTR. Then, download and extract the project files into your working directory.
-Install Ollama: Choose your preferred LLM (we recommend QWEN2 for this use case).
-Run the Application:
-Using Flask: `Flask --app app.py run`
-Using Python: `python app.py`
-Access the UI: Open your browser and navigate to `localhost:9876`. Click "Toggle Recording" to start capturing your screen every 30 seconds. Press the red button to stop recording.
+Clone the repository (data-max-hq/open-recall)
+cd into /open-recall
+pip install pyautogui
+In the terminal run ‘make build’
+In the terminal run ‘make run’
+After a couple of minutes then head over to "localhost:9876"
+In "ADD LLM" type out the LLM you want to use (we recomend qwen2:1.5b or qwen2:0.5b) and press "Add LLM"
 
 ## Functionality
-Toggle Recording: To turn recording your screen on or off
+Run "screenshot-desktop.py" to start capturin the screen
 Query ChromaDB: Test the database to retrieve relevant pieces of context for a specific query.
 LLM Prompt: Pass a query to QWEN2:1.5b to get an explanation of what the user was doing based on the retrieved context.
 Summary

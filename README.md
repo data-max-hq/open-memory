@@ -22,13 +22,13 @@ Our implementation leverages several open-source tools to replicate the function
 * ChromaDB: A database used to store embeddings for efficient retrieval.
 
 ## Setup Guide
-*Clone the repository (data-max-hq/open-recall)
-*cd into /open-recall
-*pip install pyautogui
-*In the terminal run ‘make build’
-*In the terminal run ‘make run’
-*After a couple of minutes then head over to "localhost:9876"
-*In "ADD LLM" type out the LLM you want to use (we recomend qwen2:1.5b or qwen2:0.5b) and press "Add LLM"
+* Clone the repository (data-max-hq/open-recall)
+* cd into /open-recall
+* pip install pyautogui
+* In the terminal run ‘make build’
+* In the terminal run ‘make run’
+* After a couple of minutes then head over to "localhost:9876"
+* In "ADD LLM" type out the LLM you want to use (we recomend qwen2:1.5b or qwen2:0.5b) and press "Add LLM"
 
 ## Functionality
 Run "screenshot-desktop.py" to start capturin the screen

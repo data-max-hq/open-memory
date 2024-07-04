@@ -1,3 +1,6 @@
+# Open-Memory
+
+
 ## Usage Flow:
 
 The user runs ‘screenshot-desktop.py’ whenever they want to start recording their screens
@@ -18,7 +21,6 @@ The retrieved information is presented to the user, providing them with the nece
 This approach ensures that all data processing and storage remain under the user's control, eliminating the risks associated with cloud-based solutions and empowering users to maintain their privacy.
 
 
-# Open-Memory
 
 ## Setup Guide
 * Clone the repository (data-max-hq/open-memory)

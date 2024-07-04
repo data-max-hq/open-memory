@@ -11,9 +11,17 @@
 
 ## Functionality
 Run "screenshot-desktop.py" to start capturin the screen
+
+  
 Query ChromaDB: Test the database to retrieve relevant pieces of context for a specific query.
+
+  
 LLM Prompt: Pass a query to QWEN2:1.5b to get an explanation of what the user was doing based on the retrieved context.
-Summary
+
+  
+##Summary
+
+  
 In summary, our open-source alternative to Windows Recall offers a secure, private, and efficient way to continuously record screens and perform OCR, ensuring that all data remains under the user's control. By leveraging the high-quality embedding and reranking models from JinaAI, we enhance the accuracy and relevance of the information retrieved, providing users with a powerful and privacy-conscious solution. This project demonstrates the potential of open-source tools to address privacy concerns while delivering robust functionality.
 
 

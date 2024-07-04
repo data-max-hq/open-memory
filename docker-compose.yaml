@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "9876:9876"
+      - "8080:8080"
     volumes:
       - ./screenshots:/app/screenshots
       - /app/chroma

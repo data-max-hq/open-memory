@@ -20,7 +20,7 @@ RUN mkdir -p /app/screenshots /app/chroma
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose ports
-EXPOSE 9876
+EXPOSE 8080
 
 # Command to run the supervisor
 CMD ["/usr/bin/supervisord"]

@@ -1,5 +1,8 @@
 # Open-Memory
 
+## Introduction:
+
+In response to growing privacy concerns and Microsoft's "Windows Recall" feature, which records and analyzes screen activities by transmitting data to the cloud, we have developed an open-source pilot that offers similar functionality without compromising user privacy.
 
 ## Usage Flow:
 
@@ -24,10 +27,12 @@ This approach ensures that all data processing and storage remain under the user
 
 ## Setup Guide
 * Clone the repository (data-max-hq/open-memory)
-* cd into /open-memory
-* pip install pyautogui
-* In the terminal run ‘make build’
-* In the terminal run ‘make run’
+  ```
+  cd /open-memory
+  pip install pyautogui
+  make build
+  make run
+  ```
 * After a couple of minutes then head over to "localhost:8080"
 * In "ADD LLM" type out the LLM you want to use (we recomend qwen2:1.5b or qwen2:0.5b) and press "Add LLM"
 

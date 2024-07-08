@@ -2,35 +2,96 @@
 <html>
 <head>
     <title>Screen Recorder and Query Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+
+        h2 {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            color: #555;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #777;
+        }
+
+        form {
+            margin: 1rem 0;
+        }
+
+        input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            margin: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 250px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
         img {
             width: 400px;
             height: 225px;
             object-fit: contain;  /* Ensures the image does not get distorted */
         }
+
         .result-container {
             display: flex;
             justify-content: space-around;
             gap: 20px;
             flex-wrap: wrap;
+            margin: 1rem 0;
         }
+
         .result {
             display: flex;
             flex-direction: column;
             align-items: center;
             border: 1px solid #ccc;
             padding: 10px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            border-radius: 10px;
+            max-width: 420px;
         }
     </style>
 </head>
 <body>
     <h1>Screen Recorder</h1>
     <p>Screenshots Taken: {{ counter }}</p>
-
-    <form action="{{ url_for('toggle_recording') }}" method="post">
-        <button type="submit">{{ 'Stop Recording' if recording_active else 'Start Recording' }}</button>
-    </form>
 
     <h1>Query ChromaDB</h1>
     <form action="{{ url_for('query') }}" method="post">

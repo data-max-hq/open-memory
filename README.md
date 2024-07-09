@@ -27,7 +27,7 @@ This approach ensures that all data processing and storage remain under the user
 
 
 ## Setup Guide
-* Tested and recomended to use ```Python 3.11 ```
+* Tested using ```Python 3.11 ```
 * Clone the repository (data-max-hq/open-memory)
   
   ```

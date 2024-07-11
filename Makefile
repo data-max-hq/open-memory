@@ -6,3 +6,4 @@ run:
 
 clean:
 	docker rm jinaai-demo
+	

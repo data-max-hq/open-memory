@@ -24,3 +24,4 @@ EXPOSE 8080
 
 # Command to run the supervisor
 CMD ["/usr/bin/supervisord"]
+

@@ -46,3 +46,4 @@ if __name__ == "__main__":
     while True:
         capture_analyze_and_embed()
         time.sleep(1)
+

@@ -33,3 +33,4 @@ if __name__ == "__main__":
     query_text = input("Enter your question: ")
     model = input("Enter the model you want to use (default is 'qwen2'): ") or modelllm
     send_prompt(query_text, model)
+

@@ -22,3 +22,4 @@ def capture_screenshots():
 
 if __name__ == "__main__":
     capture_screenshots()
+

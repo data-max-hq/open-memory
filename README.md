@@ -36,20 +36,8 @@ In response to growing privacy concerns and Microsoft's "Windows Recall" feature
    docker --version
    ```
 
-2. **Install Docker Compose:**
 
-   Docker Compose is included in Docker Desktop for Windows and macOS. For Linux, you can install it by following these steps:
-   ```sh
-   sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-   sudo chmod +x /usr/local/bin/docker-compose
-   ```
-
-   Verify the installation:
-   ```sh
-   docker-compose --version
-   ```
-
-3. **Install Make:**
+2. **Install Make:**
 
    Depending on your operating system, install Make:
 
@@ -64,7 +52,7 @@ In response to growing privacy concerns and Microsoft's "Windows Recall" feature
      sudo yum group install 'Development Tools'  # For CentOS/RHEL
      ```
 
-4. **Clone the Repository and Install Python Dependencies:**
+3. **Clone the Repository and Install Python Dependencies:**
 
    ```sh
    git clone https://github.com/data-max-hq/open-memory.git
@@ -72,14 +60,14 @@ In response to growing privacy concerns and Microsoft's "Windows Recall" feature
    pip install pyautogui
    ```
 
-5. **Build and Run the Docker Containers:**
+4. **Build and Run the Docker Containers:**
 
    ```sh
    make build
    make run
    ```
 
-6. **Access the Application:**
+5. **Access the Application:**
 
    After the containers are up and running, open your web browser and navigate to:
    ```

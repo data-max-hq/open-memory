@@ -11,7 +11,7 @@ import requests  # Add requests library for making HTTP requests
 app = Flask(__name__)
 
 # Global Variables
-recording_active = False
+recording_active = True
 screenshot_counter = 0
 screenshot_thread = None
 
@@ -32,11 +32,12 @@ def index():
 @app.route('/toggle-recording', methods=['POST'])
 def toggle_recording():
     global recording_active, screenshot_thread
-    recording_active = recording_active
-    screenshot_thread = threading.Thread(target=take_screenshots)
-    screenshot_thread.start()
-    if screenshot_thread:
-        screenshot_thread.join()
+    if recording_active:
+        screenshot_thread = threading.Thread(target=take_screenshots)
+        screenshot_thread.start()
+    else:
+        if screenshot_thread:
+            screenshot_thread.join()
     return redirect(url_for('index'))
 
 @app.route('/query', methods=['POST'])
@@ -56,23 +57,20 @@ def send_prompt(query_text: str, model="qwen2:1.5b"):
     print(context_text)
     prompt = f"{context_text}\n\nExplain what the user was doing at the time this was opened: {query_text}"
 
-    # Using curl to send the request to the LLM
-    command = [
-        'curl',
-        '-X', 'POST',
-        'http://ollama-service:11434/api/generate',
-        '-d', json.dumps({"model": model, "prompt": prompt, "stream": False}),
-        '-H', 'Content-Type: application/json'
-    ]
+    # Using requests to send the request to the LLM
+    url = 'http://ollama-service:11434/api/generate'
+    headers = {'Content-Type': 'application/json'}
+    payload = {'model': model, 'prompt': prompt, 'stream': False}
+    
     try:
-        response = subprocess.run(command, capture_output=True, text=True, check=True)
-        response_json = json.loads(response.stdout)
+        response = requests.post(url, json=payload, headers=headers)
+        response.raise_for_status()
+        response_json = response.json()
         response_text = response_json.get('response', 'No response from the model')
         print(f"Response: {response_text}")
         return response_text
-    except subprocess.CalledProcessError as e:
+    except requests.exceptions.RequestException as e:
         print(f"Error occurred: {e}")
-        print(f"Command output: {e.output}")
         return "An error occurred while processing the request."
 
 @app.route('/handle_prompt', methods=['POST'])
@@ -112,5 +110,4 @@ def add_llm():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=False)
-
+    app.run(host='0.0.0.0', port=8080, debug=True)

@@ -57,7 +57,7 @@ In response to growing privacy concerns and Microsoft's "Windows Recall" feature
    ```sh
    git clone https://github.com/data-max-hq/open-memory.git
    cd open-memory
-   pip install pyautogui
+   pip install -r UI_requirements.txt
    ```
 
 4. **Build and Run the Docker Containers:**

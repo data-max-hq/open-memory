@@ -81,3 +81,5 @@ In response to growing privacy concerns and Microsoft's "Windows Recall" feature
 - **Run `screenshot-desktop.py` to start capturing the screen.**
 - **Query ChromaDB:** Test the database to retrieve relevant pieces of context for a specific query.
 - **LLM Prompt:** Pass a query to QWEN2:1.5b to get an explanation of what the user was doing based on the retrieved context.
+
+Made with ❤️ by [datamax.ai](https://www.datamax.ai/).
